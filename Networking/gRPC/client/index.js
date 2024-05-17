@@ -49,7 +49,7 @@ app.post('/update', (req, res) =>{
 })
 
 app.post('/remove', (req, res) =>{
-    client.remove({ id: req.body.customer_id }, (err, _) => {
+    client.remove({ id: req.body.id }, (err, _) => {
         if (err) throw err;
 
         console.log("Customer removed successfully");
