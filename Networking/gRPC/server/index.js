@@ -32,10 +32,47 @@ server.addService(customersProto.CustomerService.service,{
     //DB call or any
     callback(null, {customers})
     },
-    get:(call,callback)=>{},
-    insert:(call,callback)=>{},
-    update:(call,callback)=>{},
-    remove:(call, callback)=>{}
+    get:(call,callback)=>{
+        const customer = customers.find(cus=> cus.id = call.request.id);
+        if(customer)
+            callback(null, {customer})
+        else
+           callback({
+           code:grpc.status.NOT_FOUND,
+           details:"NOT FOUND"
+        })
+    },
+    insert:(call,callback)=>{
+        let customer = call.request;
+        customer.id = Math.random(); // uuidv4 - unique id generating library
+        customers.push(customer);
+        callback(null,{customer})
+    },
+    update:(call,callback)=>{
+        let existingCustomer = customers.find(cus => cus.id === call.request.id);
+        if(existingCustomer){
+            existingCustomer={...existingCustomer, ...call.request};
+            callback(null, {existingCustomer})
+        }
+        else
+        callback({
+            code:grpc.status.NOT_FOUND,
+            details:"NOT FOUND"
+         })
+    },
+    remove:(call, callback)=>{
+        let customerIndex = customers.findIndex(cus => cus.id === call.request.id);
+        if(customerIndex!==-1){
+            customers.splice(customerIndex,1)
+           callback(null, {message:"success"})
+        }
+        else
+        callback({
+            code:grpc.status.NOT_FOUND,
+            details:"NOT FOUND"
+         })
+    
+    }
 })
 
 server.bind("127.0.0.1:30043", grpc.ServerCredentials.createInsecure());
