@@ -24,14 +24,39 @@ app.get('/',(req, res)=>{
   })
 })
 
-app.get('/create',()=>{
-    
+app.post('/create',(req, res)=>{
+    let newCustomer ={
+      name: req.body.name,
+      age:req.body.age,
+      address:req.body.address
+    }
+
+    client.insert(newCustomer, (err, data)=>{
+      if(err) throw err;
+      console.log("Customer created successfully", data);
+      res.send({message:"Customer created successfully" })
+    })
 })
 
-app.get('/update',()=>{
-    
+app.post('/update',(req,res)=>{
+  let updatedCustomer ={
+    id: req.body.id,
+    name: req.body.name,
+    age:req.body.age,
+    address:req.body.address
+  }
+
+  client.update(updatedCustomer, (err, data)=>{
+    if(err) throw err;
+    console.log("Customer updated successfully", data);
+    res.send({message:"Customer updated successfully" })
+  })
 })
 
-app.get('/remove',()=>{
-    
+app.post('/remove',()=>{
+    client.remove({id: req.body.id}, (err, data)=>{
+      if(err) throw err;
+      console.log("Customer removed successfully", data);
+      res.send({message:"Customer removed successfully" })
+    })
 })
