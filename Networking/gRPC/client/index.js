@@ -1,5 +1,6 @@
 const client = require("./client")
 
+const path = require("path");
 const express = require("express");
 const bodyParser = require("body-parser");
 
@@ -10,7 +11,7 @@ app.use(bodyParser.urlencoded({extended:false}));
 
 
 
-const PORT = process.env.PORT || 3000;
+const PORT =  3000;
 
 app.listen(PORT , ()=>{
     console.log("Server running at port ", PORT)

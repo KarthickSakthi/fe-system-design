@@ -1,9 +1,9 @@
 const PROTO_PATH ="./customers.proto";
 
-const grpc = require("grpc");
+const grpc = require("@grpc/grpc-js");
 const grpcProtoLoader = require("@grpc/proto-loader");
 
-const packageDefinition = protoLoader.loadSync(PROTO_PATH, {
+const packageDefinition = grpcProtoLoader.loadSync(PROTO_PATH, {
     keepCase: true,
     longs: String,
     enums:String,
@@ -27,6 +27,7 @@ const customers=[{
     age:24,
     address: "Chennai"
 }]
+
 server.addService(customersProto.CustomerService.service,{
     getAll:(call,callback)=>{
     //DB call or any
@@ -75,5 +76,12 @@ server.addService(customersProto.CustomerService.service,{
     }
 })
 
-server.bind("127.0.0.1:30043", grpc.ServerCredentials.createInsecure());
-server.start();
+server.bindAsync("127.0.0.1:30043", grpc.ServerCredentials.createInsecure(), (err, port)=>{
+    if(err){
+        console.log(`error starting gRPC server ${err}`)
+    }
+    else{
+        server.start();
+        console.log(`gRPC server is listening on ${port}`)
+    }
+});

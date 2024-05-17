@@ -1,9 +1,9 @@
 const PROTO_PATH ="./customers.proto";
 
-const grpc = require("grpc");
+const grpc = require("@grpc/grpc-js");
 const grpcProtoLoader = require("@grpc/proto-loader");
 
-const packageDefinition = protoLoader.loadSync(PROTO_PATH, {
+const packageDefinition = grpcProtoLoader.loadSync(PROTO_PATH, {
     keepCase: true,
     longs: String,
     enums:String,
