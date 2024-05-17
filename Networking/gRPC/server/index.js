@@ -16,12 +16,12 @@ const server = new grpc.Server();
 
 const customers = [{
     id: 'sdfshdfsd',
-    name: 'Chirag Goel',
+    name: 'Karthick',
     age: 22,
     address: 'Bangalore'
 }, {
     id: 'cvvbcbewb',
-    name: 'Akshay Saini',
+    name: 'Rahul',
     age: 22,
     address: 'Uttrakhand'
 }];
