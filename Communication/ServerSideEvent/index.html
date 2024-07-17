@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script>
+//Sse connection
+
+const eventSource = new EventSource("/sse");
+eventSource.onmessage=(event)=>{
+    console.log(event.data);
+    const sseDataRef = document.getElementById("sse");
+    sseDataRef.innerHTML += `<p>${event.data}</p>`;
+}
+</script>
+<body>
+    <h1>Server sent event</h1>
+
+    <h2 id="sse"></h2>
+</body>
+</html>
