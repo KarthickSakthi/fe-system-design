@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="http://unsecure.com/abc.js"></script>
+
+     <script nonce="randomKey">
+        console.log("My trusted code:: inline script") //unsafe-inline, none-randomKey header allows to run this script
+    </script>
+      <script >
+        console.log("My Non trusted code:: inline script") // this won't run due to no nonce
+    </script>
+
+    <title>Content Security Policy</title>
+</head>
+<body>
+    <h1>CORS</h1>
+    <!-- img won't load because headers set that only same origin script should loaded , check the idex.js -->
+    <img src="https://do6gp1uxl3luu.cloudfront.net/banner+and+logos/name.png" /> 
+</body>
+</html>
